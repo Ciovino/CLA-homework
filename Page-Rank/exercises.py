@@ -212,6 +212,25 @@ def exercise_14():
     print(f"Eigenvalues of M: {eigenvalues.real}")
     print(f"Second largest (in magnitude): {second_largest:.4f}")
 
+def exercise_17():
+    """Exercise 17 from the Page-Rank paper
+    
+    How should the value of m being chosen? How does this affects the ranking and
+    computation time?
+    """
+    
+    original_web: list[tuple[int, int]] = [
+        (0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 0), (3, 0), (3, 2), (2, 4), (4, 2)
+    ]
+    m_values = [0.0, 0.15, 0.5, 0.85, 1.0]
+    
+    for m in m_values:
+        solver = PageRankSolver(m=m)
+        solver.load_graph(original_web)        
+        print(f"\nRanking with {m=}")
+        solver.print_ranking()
+        print(f"Took {len(solver.error_history)} steps")
+
 def main():
     print("######## Exercise 1 ########")
     exercise_1()
@@ -230,6 +249,9 @@ def main():
     
     print("\n######## Exercise 14 ########")
     exercise_14()
+    
+    print("\n######## Exercise 17 ########")
+    exercise_17()
 
 if __name__ == "__main__":
     main()
