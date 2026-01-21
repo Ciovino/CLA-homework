@@ -98,7 +98,7 @@ def main():
         return
 
     print("\n" + ("-"*80))
-    print("\tRunning Page rank without dangling node correction (expect leakge)\n")
+    print("\tRunning Page rank without dangling node correction (expect leakage)\n")
     solve_for_dataset(n, links, url_map, False)
     
     print("\n" + ("-"*80))
