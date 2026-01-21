@@ -10,7 +10,7 @@ def exercise_1():
     3; page 3 also links to page 5. Does this boost page 3's score above that of page 1?
     """
 
-    print("\nOriginal Web (without page 5)")
+    print("Original Web (without page 5)")
     figure_2_1: list[tuple[int, int]] = [
         (0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 0), (3, 0), (3, 2)
     ]
@@ -43,7 +43,7 @@ def exercise_4():
     eigenvector for this eigenvalue, and scale the vector so that components sum to one.
     Does the resulting ranking seems reasonable?
     """
-    print("\nDangling Node Analysis")
+    print("Dangling Node Analysis")
     
     # Original Edges
     # Remove (2, 0) which is 3->1
@@ -79,10 +79,6 @@ def exercise_4():
     print("Scaled Eigenvector (Perron):")
     for i, val in enumerate(v_max):
         print(f"Page {i+1}: {val:.4f}")
-        
-    print("\nInterpretation: Does it seem reasonable?")
-    print("If Page 3 (Index 2) absorbs score but gives none back,")
-    print("pages upstream of it might pile up rank.")
 
 def exercise_11():
     """Exercise 11 from the Page-Rank paper
@@ -93,7 +89,7 @@ def exercise_11():
     to 1. Use m=0.15.
     """
     
-    print("\nOriginal Web (without page 5)")
+    print("Original Web (without page 5)")
     figure_2_1: list[tuple[int, int]] = [
         (0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 0), (3, 0), (3, 2)
     ]
@@ -126,7 +122,7 @@ def exercise_12():
     with_page_6: list[tuple[int, int]] = original_web + [(5, i) for i in range(6)]
     
     # Solving using A => damping factor m=0.0
-    print("Ranking using link matrix A")
+    print("Ranking using link matrix A (damping m=0.0)")
     solver = PageRankSolver(m=0.0)
     solver.load_graph(with_page_6)
     solver.print_ranking()
@@ -184,22 +180,20 @@ def exercise_14():
     solver = PageRankSolver()
     solver.load_graph(original_web)
     solver.solve(x_0=x_0) # Manually start the solver with the given x_0
+    
+    print("Ranking")
+    solver.print_ranking()
+    
+    print("\nError Table")
     solver.print_error_table(k_values=k_values)
     
     # Compute value of c
-    # A is small in size
-    A_dense = solver.A.toarray()
-    # 1. Identify dangling nodes in the dense matrix
-    dangling_indices = np.where(np.sum(A_dense, axis=0) == 0)[0]
+    A_dense = solver.A.toarray() # In this case, A is small in size
 
-    # 2. Create the dangling correction matrix (columns of 1/n at dangling indices)
-    D = np.zeros_like(A_dense)
-    D[:, dangling_indices] = 1.0 / solver.n
-
-    # 3. Construct M with the correction included in the (1-m) term
-    # Formula: M = (1-m)(A + D) + mS
+    # Construct M
+    # Formula: M = (1-m)A + mS
     S = np.full_like(A_dense, 1.0 / solver.n)
-    M = (1 - solver.m) * (A_dense + D) + solver.m * S
+    M = (1 - solver.m) * A_dense + solver.m * S
     min_i = np.min(M, axis=0)
     c = np.max(1 - 2 * min_i)
     print(f"{c=:.4f}")
@@ -227,30 +221,30 @@ def exercise_17():
     for m in m_values:
         solver = PageRankSolver(m=m)
         solver.load_graph(original_web)        
-        print(f"\nRanking with {m=}")
+        print(f"Ranking with {m=}")
         solver.print_ranking()
-        print(f"Took {len(solver.error_history)} steps")
+        print(f"Took {len(solver.error_history)} steps\n")
 
 def main():
-    print("######## Exercise 1 ########")
+    print("\t######## Exercise 1 ########")
     exercise_1()
     
-    print("\n######## Exercise 4 ########")
+    print("\n\t######## Exercise 4 ########")
     exercise_4()
     
-    print("\n######## Exercise 11 ########")
+    print("\n\t######## Exercise 11 ########")
     exercise_11()
     
-    print("\n######## Exercise 12 ########")
+    print("\n\t######## Exercise 12 ########")
     exercise_12()
     
-    print("\n######## Exercise 13 ########")
+    print("\n\t######## Exercise 13 ########")
     exercise_13()
     
-    print("\n######## Exercise 14 ########")
+    print("\n\t######## Exercise 14 ########")
     exercise_14()
     
-    print("\n######## Exercise 17 ########")
+    print("\n\t######## Exercise 17 ########")
     exercise_17()
 
 if __name__ == "__main__":
