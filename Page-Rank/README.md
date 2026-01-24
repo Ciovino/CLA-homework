@@ -57,5 +57,11 @@ python main.py
 To execute the simulations for the specific exercises (Link Farming, Convergence Analysis, Disconnected Webs, etc.):
 ```bash
 python exercises.py
+
+# Specific exercise can be run by passing the number as argument
+python exercises.py 4
+
+# Passing -h will show the list of possible exercises
+python exercises.py -h
 ```
 > This will output the rankings, convergence tables, and comparisons discussed in the report.
