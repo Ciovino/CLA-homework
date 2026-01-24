@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 from pageranksolver import PageRankSolver
 
@@ -223,27 +224,41 @@ def exercise_17():
         solver.print_ranking()
         print(f"Took {len(solver.error_history)} steps\n")
 
+EXERCISES = {
+    1: exercise_1,
+    4: exercise_4,
+    11: exercise_11,
+    12: exercise_12,
+    13: exercise_13,
+    14: exercise_14,
+    17: exercise_17
+}
+
+def run_exercise(num: int, func):
+    """Exercise dispatcher"""
+    print(f"\n\t######## Exercise {num} ########")
+    func()
+
 def main():
-    print("\t######## Exercise 1 ########")
-    exercise_1()
-    
-    print("\n\t######## Exercise 4 ########")
-    exercise_4()
-    
-    print("\n\t######## Exercise 11 ########")
-    exercise_11()
-    
-    print("\n\t######## Exercise 12 ########")
-    exercise_12()
-    
-    print("\n\t######## Exercise 13 ########")
-    exercise_13()
-    
-    print("\n\t######## Exercise 14 ########")
-    exercise_14()
-    
-    print("\n\t######## Exercise 17 ########")
-    exercise_17()
+    parser = argparse.ArgumentParser(description="Run specific exercises or all of them.")
+    parser.add_argument(
+        "exercise_id", 
+        type=int, 
+        nargs="?", 
+        help="The number of the exercise to run (e.g., 12)",
+        choices=EXERCISES.keys()
+    )
+
+    args = parser.parse_args()
+    if args.exercise_id:
+        if args.exercise_id in EXERCISES:
+            run_exercise(args.exercise_id, EXERCISES[args.exercise_id])
+        else:
+            print(f"Error: Exercise {args.exercise_id} not found.")
+    else:
+        # No argument -> Run all exercises
+        for num, func in EXERCISES.items():
+            run_exercise(num, func)
 
 if __name__ == "__main__":
     main()
