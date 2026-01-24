@@ -46,19 +46,17 @@ def exercise_4():
     print("Dangling Node Analysis")
     
     # Original Edges
-    # Remove (2, 0) which is 3->1
-    edges_dangling: list[tuple[int, int]] = [
-        (0, 1), (0, 3), (1, 2), (3, 0), (3, 2)
+    figure_2_1: list[tuple[int, int]] = [
+        (0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 0), (3, 0), (3, 2)
     ]
+    # New edges
+    edges_dangling = [edge for edge in figure_2_1 if edge != (2, 0)] # Remove (2, 0) which is 3->1
     
-    # 4 pages (0,1,2,3)
-    n = 4
-    A = np.zeros((n, n))
-    
-    # Build A manually: A_ij = 1/deg(j) if j->i
-    A[1, 0] = 0.5; A[3, 0] = 0.5
-    A[2, 1] = 1.0
-    A[0, 3] = 0.5; A[2, 3] = 0.5
+    solver = PageRankSolver()
+    solver.load_graph(edges_dangling)
+
+    # Extract dense A for eigenvalue analysis
+    A = solver.A.toarray()
     
     print("Substochastic Matrix A:")
     print(A)
