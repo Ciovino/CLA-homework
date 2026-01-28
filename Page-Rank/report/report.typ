@@ -81,7 +81,7 @@ A critical theoretical finding concerns the diagonalizability of the ranking mat
 $ A = mat(delim: "[", 0, 1 / 2, 1 / 2; 0, 0, 1 / 2; 1, 1 / 2, 0) $
 The characteristic polynomial is $p(lambda) = - lambda^3 + 3/4 lambda + 1/4$. The eigenvalues are $lambda_1 = 1$ and $lambda_(2,3) = -1/2$.
 
-Solving for the eigenspace of $lambda = -1/2$, the system $(A + 1/2 I) upright(bold(v)) = upright(bold(0))$ yields a single independent eigenvector $upright(bold(v)) = [0, 1, - 1]^T$. Since the algebraic multiplicity (2) exceeds the geometric multiplicity (1), $A$ is not diagonalizable.
+Solving for the eigenspace of $lambda = -1/2$, the system $(A + 1/2 I) upright(bold(v)) = upright(bold(0))$ yields the family of eigenvectors $upright(bold(v)) = [0, k, - k]^T space forall k in bb(R)$. Since the algebraic multiplicity (2) exceeds the geometric multiplicity (1), $A$ is not diagonalizable.
 
 === Proposition
 The non-diagonalizability of $A$ transfers to the Google Matrix $M = (1-m)A + m S$ for $0 <= m < 1$.
@@ -92,7 +92,7 @@ Left-multiplying the eigenvalue equation $A upright(bold(v)) = lambda upright(bo
 $ upright(bold(1))^T A upright(bold(v)) = upright(bold(1))^T (lambda upright(bold(v))) ==>(upright(bold(1))^T A) upright(bold(v)) = lambda(upright(bold(1))^T upright(bold(v))) $
 Since columns of $A$ sum to 1, $upright(bold(1))^T A = upright(bold(1))^T$. Thus:
 $ upright(bold(1))^T upright(bold(v)) = lambda(upright(bold(1))^T upright(bold(v))) ==>(1 - lambda) sum v_i = 0 $
-Since $lambda = -1/2 != 1$, it follows that $sum v_i = 0$.
+Since $lambda != 1$, it follows that $sum v_i = 0$.
 
 Next, consider the effect of $S$ on this eigenvector. Since $S$ calculates the average of components, and the average of $bold(v)$ is 0:
 $ S bold(v) = bold(0) $
